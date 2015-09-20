@@ -23,9 +23,10 @@ import webservice.WSGestionUsuario_Service;
  * @author marcosmayen
  */
 @WebServlet(name = "SAutentifica", urlPatterns = {"/SAutentifica"})
-public class SAutentifica extends HttpServlet {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/WSBus/WSGestionUsuario.wsdl")
+public class SAutentificar extends HttpServlet {
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/WSBuses/WSGestionUsuario.wsdl")
     private WSGestionUsuario_Service service;
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/WSBus/WSGestionUsuario.wsdl")
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -110,6 +111,7 @@ public class SAutentifica extends HttpServlet {
         webservice.WSGestionUsuario port = service.getWSGestionUsuarioPort();
         return port.validar(usuario, contrasena, tipo);
     }
+
 
     
 
