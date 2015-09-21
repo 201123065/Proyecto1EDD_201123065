@@ -50,8 +50,8 @@
                     <div class="celda">
                         <h1>Administrador</h1>
                         <ul>
-                            <li><h2><a href="Estacion.jsp">Crear</a></h2></li>
-                            <li><h2><a href="AsignaBus.jsp">Asignar</a></h2></li>
+                            <li><h2><a href="creaAdmin.jsp">Crear</a></h2></li>
+                            <li><h2><a href="Reportes.jsp">Reporte</a></h2></li>
                             <li><h2><a href="Ruta.jsp">Ruta</a></h2></li>
                         </ul>
                     </div>

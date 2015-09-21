@@ -16,6 +16,24 @@
 
 <xs:element name="ValidarResponse" type="tns:ValidarResponse"/>
 
+<xs:element name="reporteAdmin" type="tns:reporteAdmin"/>
+
+<xs:element name="reporteAdminResponse" type="tns:reporteAdminResponse"/>
+
+<xs:element name="reporteChofer" type="tns:reporteChofer"/>
+
+<xs:complexType name="reporteAdmin">
+<xs:sequence>
+<xs:element name="parameter" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="reporteAdminResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="RegistroAdmin">
 <xs:sequence>
 <xs:element name="Usuario" type="xs:string" minOccurs="0"/>
@@ -27,6 +45,10 @@
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="reporteChofer">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="RegistroEstacion">

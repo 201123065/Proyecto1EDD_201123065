@@ -1,19 +1,18 @@
+package servlets;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.xml.ws.WebServiceRef;
 import webservice.WSGestionUsuario_Service;
 
@@ -21,11 +20,10 @@ import webservice.WSGestionUsuario_Service;
  *
  * @author marcosmayen
  */
-@WebServlet(name = "RegistraChofer", urlPatterns = {"/RegistraChofer"})
-public class RegistraChofer extends HttpServlet {
+@WebServlet(urlPatterns = {"/verReportes"})
+public class verReportes extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/WSBuses/WSGestionUsuario.wsdl")
     private WSGestionUsuario_Service service;
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_8080/WSBus/WSGestionUsuario.wsdl")
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,15 +37,14 @@ public class RegistraChofer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id = request.getParameter("id");
-        String Nombre = request.getParameter("txtNombre");
-        String Apellido = request.getParameter("txtApellido");
-        String Passwd = request.getParameter("txtPass");
-        String Confirma = request.getParameter("confirmaPass");
-        if(Passwd.equals(Confirma)){
-            registroChofer(id, Nombre, Apellido, Passwd);
-            response.sendRedirect("CreaChofer.jsp");
-        }
+       String Tipo = request.getParameter("TipoReporte");
+       if(Tipo.equals("Administradores")){
+           reporteAdmin("");
+       }else if(Tipo.equals("Choferes")){
+            reporteChofer();
+       }
+       response.sendRedirect("main.jsp");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,14 +86,20 @@ public class RegistraChofer extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String registroChofer(java.lang.String clave, java.lang.String nombre, java.lang.String apellido, java.lang.String pass) {
+    private void reporteAdmin(java.lang.String parameter) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         webservice.WSGestionUsuario port = service.getWSGestionUsuarioPort();
-        return port.registroChofer(clave, nombre, apellido, pass);
+        port.reporteAdmin(parameter);
     }
 
-    
+    private void reporteChofer() {
+        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
+        // If the calling of port operations may lead to race condition some synchronization is required.
+        webservice.WSGestionUsuario port = service.getWSGestionUsuarioPort();
+        port.reporteChofer();
+    }
+
     
 
 }

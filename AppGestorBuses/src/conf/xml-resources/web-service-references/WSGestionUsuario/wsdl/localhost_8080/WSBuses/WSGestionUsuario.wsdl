@@ -4,6 +4,15 @@
 <xsd:import namespace="http://webservice/" schemaLocation="http://localhost:8080/WSBuses/WSGestionUsuario?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="reporteChofer">
+<part name="parameters" element="tns:reporteChofer"/>
+</message>
+<message name="reporteAdmin">
+<part name="parameters" element="tns:reporteAdmin"/>
+</message>
+<message name="reporteAdminResponse">
+<part name="parameters" element="tns:reporteAdminResponse"/>
+</message>
 <message name="Validar">
 <part name="parameters" element="tns:Validar"/>
 </message>
@@ -29,6 +38,13 @@
 <part name="parameters" element="tns:RegistroEstacionResponse"/>
 </message>
 <portType name="WSGestionUsuario">
+<operation name="reporteChofer">
+<input wsam:Action="http://webservice/WSGestionUsuario/reporteChofer" message="tns:reporteChofer"/>
+</operation>
+<operation name="reporteAdmin">
+<input wsam:Action="http://webservice/WSGestionUsuario/reporteAdminRequest" message="tns:reporteAdmin"/>
+<output wsam:Action="http://webservice/WSGestionUsuario/reporteAdminResponse" message="tns:reporteAdminResponse"/>
+</operation>
 <operation name="Validar">
 <input wsam:Action="http://webservice/WSGestionUsuario/ValidarRequest" message="tns:Validar"/>
 <output wsam:Action="http://webservice/WSGestionUsuario/ValidarResponse" message="tns:ValidarResponse"/>
@@ -48,6 +64,21 @@
 </portType>
 <binding name="WSGestionUsuarioPortBinding" type="tns:WSGestionUsuario">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="reporteChofer">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+</operation>
+<operation name="reporteAdmin">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="Validar">
 <soap:operation soapAction=""/>
 <input>

@@ -13,34 +13,16 @@
     </head>
     <body>
         <h1>Reportes</h1>
-        <table border="0">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="submit" value="Administrador AVL" name="adminAVL" /></td>
-                    <td><input type="submit" value="Lista Estaciones" name="ListaEstacinoes" /></td>
-                    <td><input type="submit" value="Choferes AVL" name="choferesAVL" /></td>
-                </tr>
-                <tr>
-                    <td><select name="ListaChoferes">
-                            <option>ListaChoferes</option>
-                        </select></td>
-                        <td><input type="submit" value="Lista de este chofer" name="ListaChofer" /></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+        <form name="Reportes" action="verReportes" method="POST">
+            AVL:
+            <select name="TipoReporte">
+                <option value="Administradores">Administrador</option>
+                <option value="Choferes">Chofer</option>
+                <option value="Estación">Estacion</option>
+            </select>
+            <input type="submit" value="Administrador AVL" name="adminAVL" />
+        </form>
+        
 
     </body>
 </html>
