@@ -10,12 +10,13 @@ package Estacion;
  * @author marcosmayen
  */
 public class NodoEstacion {
-    int id, fe;
+    int id, fe,personas;
     String nombre,contrasena, Tipo;
     
     NodoEstacion hijoIzquierdo;
     NodoEstacion hijoDerecho;
-    public NodoEstacion(int id,String nombre, String contrasena,String Tipo){
+    public NodoEstacion(int id,String nombre, String contrasena,int personas,String Tipo){
+        this.personas=personas;
         this.id=id;
         this.Tipo=Tipo;
         this.nombre=nombre;

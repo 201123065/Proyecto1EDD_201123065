@@ -276,15 +276,43 @@ public class ChoferAVL {
     }
     
     
-    public void inOrden(NodoChofer a)
-    {
+    String pNodo;
+    int iz,der;
+    public void inOrden(NodoChofer a,int i)
+    { 
         if(a!=null)
         {
-            inOrden(a.hijoIzquierdo);
-            System.out.print(a.id+",");
-            inOrden(a.hijoDerecho);
+            max=(max<i)?i-1:max;
+            inOrden(a.hijoIzquierdo,i+1);
+            pRaiz=pRaiz+"node"+pos+"[label = \"<f0> |<f1> "+a.id+"|<f2> \"];\n";
+            if(pos%2!=0){
+                
+        iz=pos-(int) Math.pow(2,max-i);
+        der=pos+(int) Math.pow(2,max-i);
+                pNodo=pNodo+"\"node"+pos+"\":f0 -> \"node"+iz+":f1;\n"+
+                            "\"node"+pos+"\":f2 -> \"node"+der+":f1;\n";
+            }pos++;
+            inOrden(a.hijoDerecho,i+1);
         }
+        i--;
+        
     }
+    
+    
+    
+    String pRaiz;
+    int max;
+    public String retornaArbol(){
+        pRaiz=pNodo="";
+        pos=0;
+        iz=der=max=0;
+        inOrden(ObtenerRaiz(),0);
+        return pRaiz+pNodo;
+    }
+    
+    
+    
+    
     public void enOrden(NodoChofer a)
     {
         if(a!=null){

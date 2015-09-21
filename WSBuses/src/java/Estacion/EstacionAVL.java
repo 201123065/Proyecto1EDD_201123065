@@ -137,7 +137,7 @@ public class EstacionAVL {
     
     //metodo para insertar
     public void insertar(int d,String nombre, String clave,String Tipo){
-        NodoEstacion nuevo = new NodoEstacion(d, nombre, clave,Tipo);
+        NodoEstacion nuevo = new NodoEstacion(d, nombre, clave,0,Tipo);
         if(raiz==null){
             raiz=nuevo;
         }else{

@@ -1,9 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package webservice;
+
+import java.io.IOException;
+import java.time.Clock;
+import javax.crypto.spec.IvParameterSpec;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -116,24 +118,59 @@ public class AdminAVL {
             raiz=iavl(nuevo, raiz);
         }
     }
-   
-    public void inOrden(NodoAdmin a)
-    {
+    String pNodo;
+    int iz,der;
+    public void inOrden(NodoAdmin a,int i)
+    { 
         if(a!=null)
         {
-            inOrden(a.HijoIzq);
-            System.out.print(a.Correo+",");
-            inOrden(a.HijoDer);
+            max=(max<i)?i-1:max;
+            inOrden(a.HijoIzq,i+1);
+            pRaiz=pRaiz+"node"+pos+"[label = \"<f0> |<f1> "+a.Correo+"|<f2> \"];\n";
+            System.out.println(pRaiz);
+            if(pos%2!=0){
+                if(a.HijoIzq!=null&&a.HijoDer!=null){
+                    iz=pos-(int) Math.pow(2,max-i);
+                    der=pos+(int) Math.pow(2,max-i);
+                    pNodo=pNodo+"\"node"+pos+"\":f0 -> \"node"+iz+"\":f1;\n"+
+                            "\"node"+pos+"\":f2 -> \"node"+der+"\":f1;\n";
+                }else if(a.HijoIzq==null&&a.HijoDer!=null){
+                    pNodo=pNodo+"\"node"+(pos)+"\":f2 -> \"node"+(pos+1)+"\":f1;\n";
+                }else if(a.HijoIzq!=null&&a.HijoDer==null){
+                    pNodo=pNodo+"\"node"+(pos)+"\":f0 -> \"node"+(pos-1)+"\":f1;\n";
+                }
+            }if(a.HijoIzq==null&&a.HijoDer!=null){
+                    pNodo=pNodo+"\"node"+(pos+1)+"\":f2 -> \"node"+(pos)+"\":f1;\n";
+                }else if(a.HijoIzq!=null&&a.HijoDer==null){
+                    pNodo=pNodo+"\"node"+(pos+1)+"\":f0 -> \"node"+(pos)+"\":f1;\n";
+                    System.out.println(":v:");
+                }
+            pos++;
+            inOrden(a.HijoDer,i+1);
+            
         }
+        i--;
+        
     }
     
     
-    public void enOrden(NodoAdmin a)
+    
+    String pRaiz;
+    int max;
+    public String retornaArbol(NodoAdmin a){
+        pRaiz=pNodo="";
+        pos=0;
+        iz=der=max=0;
+        inOrden(a,0);
+        return pRaiz+pNodo;
+    }
+    public void preOrden(NodoAdmin a)
     {
         if(a!=null){
-            System.out.print(a.Correo+",");
-            enOrden(a.HijoIzq);
-            enOrden(a.HijoDer);
+            System.out.println("node"+pos+"[label = \"<f0> |<f1> "+a.Correo+"|<f2> \"];");
+            pos++;
+            preOrden(a.HijoIzq);
+            preOrden(a.HijoDer);
         }
     }
     public void postOrden(NodoAdmin a){
@@ -161,7 +198,7 @@ public class AdminAVL {
                     }else{
                         subAr.HijoIzq=iavl(nuevo, subAr.HijoIzq);
                         if((obtenerFE(subAr.HijoIzq)-obtenerFE(subAr.HijoDer))==2){
-                            nuevoPadre=(nuevo.Correo.charAt(pos)>subAr.HijoIzq.Correo.charAt(pos))?
+                            nuevoPadre=(nuevo.Correo.charAt(pos)<subAr.HijoIzq.Correo.charAt(pos))?
                                     rotacionIzquierda(subAr):
                                      rotacionDobleIzquierda(subAr);
                         }

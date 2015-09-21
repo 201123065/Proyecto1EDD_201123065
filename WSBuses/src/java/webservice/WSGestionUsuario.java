@@ -6,6 +6,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import Chofer.ChoferAVL;
 import Estacion.EstacionAVL;
+import javax.jws.Oneway;
 @WebService(serviceName = "WSGestionUsuario")
 public class WSGestionUsuario {
 
@@ -47,6 +48,47 @@ public class WSGestionUsuario {
         return "Estacion Agregada Correctamente";
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "reporteAdmin")
+    public String reporteAdmin(@WebParam(name = "parameter") String parameter) {
+        try{
+        ArchivoTXT nvo = new ArchivoTXT();
+        String cad="digraph g{\nnode[shape = record,height=.1]; \n"+nuevo.retornaArbol(nuevo.obtenerRaiz())+"}";
+        System.out.println(cad);
+        nvo.crearTXT("Admin.dot", cad);
+        GraphvizJava gj = new GraphvizJava("Admin.dot", "admimg.png");}
+        catch(Exception e){}
+        return "";
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "reporteChofer")
+    @Oneway
+    public void reporteChofer() {
+        try{
+        ArchivoTXT nvo = new ArchivoTXT();
+        String cad="digraph g{\nnode[shape = record,height=.1]; \n"+piloto.retornaArbol()+"}";
+        System.out.println(cad);
+        nvo.crearTXT("Admin.dot", cad);
+        GraphvizJava gj = new GraphvizJava("Admin.dot", "admimg.png");}
+        catch(Exception e){}
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "tipoEstacion")
+    public String tipoEstacion(@WebParam(name = "Estacion") String Estacion) {
+        
+        return null;
+    }
+
+   
+    
   
     
     
